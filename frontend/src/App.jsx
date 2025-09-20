@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { ThemeProvider, CssBaseline, Box, AppBar, Toolbar, Typography, IconButton, Input } from '@mui/material';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { ThemeProvider, CssBaseline, AppBar, Toolbar, Typography } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { makeTheme } from './theme';
-import EditorPane from './components/EditorPane';
-import DocList from './components/DocList';
+import Homepage from './components/Homepage';
+import EditorPage from './components/EditorPage';
 
 export default function App() {
   const [seed, setSeed] = useState('#6750A4');
@@ -12,29 +12,19 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>Material You Editor (demo)</Typography>
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <ColorLensIcon />
-            <Input
-              type="color"
-              value={seed}
-              onChange={(e) => setSeed(e.target.value)}
-              sx={{ width: 40, height: 40, padding: 0 }}
-            />
-          </label>
-        </Toolbar>
-      </AppBar>
-
-      <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
-        <Box sx={{ width: 320, borderRight: '1px solid rgba(0,0,0,0.08)', overflow: 'auto' }}>
-          <DocList />
-        </Box>
-        <Box sx={{ flex: 1, p: 2, overflow: 'auto' }}>
-          <EditorPane />
-        </Box>
-      </Box>
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              Redija
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/editor" element={<EditorPage />} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 }

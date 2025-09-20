@@ -23,9 +23,19 @@ export default function DocList() {
 
   return (
     <List>
-      {docs.map(d => (
-        <ListItem key={d.id} secondaryAction={<IconButton edge="end" onClick={() => remove(d.id)}><DeleteIcon /></IconButton>}>
-          <ListItemText primary={d.title} secondary={new Date(d.createdAt).toLocaleString()} />
+      {(Array.isArray(docs) ? docs : []).map(d => (
+        <ListItem
+          key={d.id}
+          secondaryAction={
+            <IconButton edge="end" onClick={() => remove(d.id)}>
+              <DeleteIcon />
+            </IconButton>
+          }
+        >
+          <ListItemText
+            primary={d.title}
+            secondary={d.createdAt ? new Date(d.createdAt).toLocaleString() : ''}
+          />
         </ListItem>
       ))}
     </List>
